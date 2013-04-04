@@ -15,9 +15,9 @@ public class Ring {
 
     Image ringTexture = null;
 
-    public Ring(String a)
+    public Ring()
             throws SlickException {
-        this.ringTexture = new Image(a);
+        this.ringTexture = new Image("content/ring.bmp");
     }
     
     public void draw()

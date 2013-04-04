@@ -24,8 +24,8 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc)
             throws SlickException {
-        ring = new Ring("content/ring.bmp");
-        player1 = new Player("content/red.bmp");
+        ring = new Ring();
+        player1 = new Player();
         player1.setPosition(325, 325);
     }
 
@@ -48,7 +48,7 @@ public class Game extends BasicGame {
         AppGameContainer app =
                 new AppGameContainer(new Game());
         app.setDisplayMode(700, 700, false);
-
+        app.setTargetFrameRate(60);
         app.start();
     }
 }

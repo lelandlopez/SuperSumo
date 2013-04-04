@@ -20,13 +20,14 @@ public class Player {
     Image playerTexture = null;
     float x;
     float y;
+    float moveSpeed = 5;
+    Bullet[] bullets = new Bullet[10];
 
-    public Player(String a)
-            throws SlickException {
-        this.playerTexture = new Image(a);
+    public Player() throws SlickException {
+        this.playerTexture = new Image("content/red.bmp");
     }
     
-    public void update(GameContainer gc){
+    public void update(GameContainer gc) throws SlickException {
         Input input = gc.getInput();
         double dX = input.getMouseX() - this.getCenterX();
         double dY = input.getMouseY() - this.getCenterY();
@@ -40,8 +41,23 @@ public class Player {
         }
         
         if(input.isKeyDown(Input.KEY_W)){
-            this.y -= Math.cos(dY/Math.hypot(dX, dY));
-            this.x += Math.sin(dX/Math.hypot(dX, dY));
+            this.y -= moveSpeed;
+        }
+        if(input.isKeyDown(Input.KEY_S)){
+            this.y += moveSpeed;
+        }
+        
+        if(input.isKeyDown(Input.KEY_A)){
+            this.x -= moveSpeed;
+        }
+        
+        if(input.isKeyDown(Input.KEY_D)){
+            this.x += moveSpeed;
+        }
+        
+        if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
+            Bullet a = new Bullet(x, y);
+            bullets[0] = a;
         }
     }
     public void setPosition(float x, float y){
@@ -57,15 +73,18 @@ public class Player {
         return playerTexture.getWidth();
     }
     
-    public float getCenterX(){
+    public double getCenterX(){
         return this.x + this.playerTexture.getWidth()/2;
     }
     
-    public float getCenterY(){
+    public double getCenterY(){
         return this.y + this.playerTexture.getHeight()/2;
     }
 
     public void draw() {
         this.playerTexture.draw(x, y);
+        if(bullets[0] != null){
+            this.bullets[0].draw();
+        }
     }
 }
