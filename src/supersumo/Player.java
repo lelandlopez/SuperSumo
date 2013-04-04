@@ -7,6 +7,7 @@ package supersumo;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +22,10 @@ public class Player {
     float x;
     float y;
     float moveSpeed = 5;
-    Bullet[] bullets = new Bullet[10];
+    double angle;
+    boolean canShoot = true;
+    int canShootFrames = 0;
+    Weapon weapon = new Pistol();
 
     public Player() throws SlickException {
         this.playerTexture = new Image("content/red.bmp");
@@ -35,6 +39,8 @@ public class Player {
         radAngle = Math.atan2(dY, dX);
         double angle = Math.toDegrees(radAngle);
         this.playerTexture.setRotation((float) angle);
+        
+        weapon.update();
         
         if(input.isKeyDown(Input.KEY_ESCAPE)){
             gc.exit();
@@ -55,9 +61,14 @@ public class Player {
             this.x += moveSpeed;
         }
         
-        if(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
-            Bullet a = new Bullet(x, y);
-            bullets[0] = a;
+        if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
+            if(weapon.canShoot()){
+                this.weapon.shoot((double)angle, getCenterX(), getCenterY());
+            }
+        }
+
+        if(input.isKeyDown(Input.KEY_LSHIFT)){
+            weapon.reload();
         }
     }
     public void setPosition(float x, float y){
@@ -83,8 +94,6 @@ public class Player {
 
     public void draw() {
         this.playerTexture.draw(x, y);
-        if(bullets[0] != null){
-            this.bullets[0].draw();
-        }
+        this.weapon.draw();
     }
 }
