@@ -5,19 +5,20 @@
 package supersumo;
 
 import java.util.ArrayList;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 /**
  *
  * @author Leland
  */
-public class Weapon {
+public abstract class PrimaryWeapon {
     
     
     public void shoot(double angle, double x, double y) throws SlickException{   
     }
     
-    public void update(){
+    public void update(GameContainer gc){
         
     }
     
@@ -25,7 +26,6 @@ public class Weapon {
     }
     
     public boolean canShoot(){
-        System.out.println("No No");
         return true;
     }
     

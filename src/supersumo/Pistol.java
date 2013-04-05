@@ -5,13 +5,14 @@
 package supersumo;
 
 import java.util.ArrayList;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 /**
  *
  * @author Leland
  */
-public class Pistol extends Weapon{
+public class Pistol extends PrimaryWeapon{
     
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
     int clipSize = 6;
@@ -27,9 +28,13 @@ public class Pistol extends Weapon{
         else return false;
     }
     
-    public void update(){
+    public void update(GameContainer gc){
         for(int i = 0; i < bullets.size(); i++){
             bullets.get(i).update();
+            if(bullets.get(i).x > gc.getWidth() || bullets.get(i).x < 0
+                    || bullets.get(i).y > gc.getHeight() || bullets.get(i).y < 0){
+                bullets.remove(i);
+            }
         }
         if(reloading == true){
             elapseReloadTime ++;

@@ -25,7 +25,7 @@ public class Player {
     double angle;
     boolean canShoot = true;
     int canShootFrames = 0;
-    Weapon weapon = new Pistol();
+    PrimaryWeapon PrimaryWeapon = new Pistol();
 
     public Player() throws SlickException {
         this.playerTexture = new Image("content/red.bmp");
@@ -40,7 +40,7 @@ public class Player {
         double angle = Math.toDegrees(radAngle);
         this.playerTexture.setRotation((float) angle);
         
-        weapon.update();
+        PrimaryWeapon.update(gc);
         
         if(input.isKeyDown(Input.KEY_ESCAPE)){
             gc.exit();
@@ -62,13 +62,13 @@ public class Player {
         }
         
         if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)){
-            if(weapon.canShoot()){
-                this.weapon.shoot((double)angle, getCenterX(), getCenterY());
+            if(PrimaryWeapon.canShoot()){
+                this.PrimaryWeapon.shoot((double)angle, getCenterX(), getCenterY());
             }
         }
 
         if(input.isKeyDown(Input.KEY_LSHIFT)){
-            weapon.reload();
+            PrimaryWeapon.reload();
         }
     }
     public void setPosition(float x, float y){
@@ -94,6 +94,6 @@ public class Player {
 
     public void draw() {
         this.playerTexture.draw(x, y);
-        this.weapon.draw();
+        this.PrimaryWeapon.draw();
     }
 }
