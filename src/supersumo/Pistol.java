@@ -31,7 +31,6 @@ public class Pistol extends PrimaryWeapon{
             }
             if(bullets.get(i).isActive==false){
                 bullets.remove(i);
-                System.out.println("i was removed");
                 break;
             }
         }

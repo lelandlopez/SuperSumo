@@ -26,6 +26,8 @@ public class Player {
     boolean canShoot = true;
     int canShootFrames = 0;
     PrimaryWeapon primaryWeapon = new Pistol();
+    int health = 100;
+    boolean isActive = true;
 
     public Player() throws SlickException {
         this.playerTexture = new Image("content/red.bmp");
@@ -69,6 +71,10 @@ public class Player {
 
         if(input.isKeyDown(Input.KEY_LSHIFT)){
             primaryWeapon.reload();
+        }
+        
+        if(this.health <= 0){
+            this.isActive = false;
         }
     }
     public void setPosition(float x, float y){

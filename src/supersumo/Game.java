@@ -12,9 +12,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import java.util.Random;
 
 public class Game extends BasicGame {
-
+    
+    Random random = new Random();
     ArrayList<Player> players = new ArrayList<Player>();
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     Ring ring;
@@ -37,16 +39,26 @@ public class Game extends BasicGame {
     @Override
     public void update(GameContainer gc, int delta)
             throws SlickException {
+        if(players.size() == 0){
+            gc.exit();
+        }
         for(int i = 0; i < players.size(); i++){
             players.get(i).update(gc);
+            if(players.get(i).isActive == false){
+                players.remove(i);
+            }
         }
         if(enemies.size() == 0){
-            enemies.add(new Enemy(125, 125));
+            enemies.add(new Enemy(random.nextInt(gc.getHeight()), random.nextInt(gc.getWidth()), players));
         }
         
         for(int i = 0; i < enemies.size(); i++){
             enemies.get(i).update(players);
+            if(enemies.get(i).isActive == false){
+                enemies.remove(i);
+            }
         }
+        
 
     }
 
