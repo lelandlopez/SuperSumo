@@ -14,26 +14,25 @@ import org.newdawn.slick.SlickException;
  */
 public class Pistol extends PrimaryWeapon{
     
-    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
     int clipSize = 6;
     int bulletsInClip = 0;
     int reloadTime = 180;
     boolean reloading = false;
     int elapseReloadTime;
     
-    public boolean canShoot(){
-        if(bulletsInClip <= clipSize && reloading == false){
-            return true;
-        }
-        else return false;
-    }
-    
     public void update(GameContainer gc){
         for(int i = 0; i < bullets.size(); i++){
             bullets.get(i).update();
+            
             if(bullets.get(i).x > gc.getWidth() || bullets.get(i).x < 0
                     || bullets.get(i).y > gc.getHeight() || bullets.get(i).y < 0){
                 bullets.remove(i);
+                break;
+            }
+            if(bullets.get(i).isActive==false){
+                bullets.remove(i);
+                System.out.println("i was removed");
+                break;
             }
         }
         if(reloading == true){
@@ -43,6 +42,13 @@ public class Pistol extends PrimaryWeapon{
                 reloading = false;
             }
         }
+    }
+    
+    public boolean canShoot(){
+        if(bulletsInClip <= clipSize && reloading == false){
+            return true;
+        }
+        else return false;
     }
     
     public void shoot(double angle, double x, double y) throws SlickException{

@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
  */
 public abstract class PrimaryWeapon {
     
-    
+    public ArrayList<Bullet> bullets = new ArrayList<Bullet>();
     public void shoot(double angle, double x, double y) throws SlickException{   
     }
     

@@ -22,6 +22,8 @@ public class Bullet {
     float speed = 10;
     float vX;
     float vY;
+    int damage = 20;
+    boolean isActive = true;
     
     public Bullet(float x, float y, float angle)
             throws SlickException {
